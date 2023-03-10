@@ -50,4 +50,12 @@ const matriculateSubject=async(idUser:string,idSubject:string)=>{
     return {responseSubject, responseUser};
 };
 
-export { insertSubject, getSubject, getSubjects, updateSubject, deleteSubject, matriculateSubject };
+const getUsersSubject = async(idSubject:string) => {
+    const subject = await SubjectModel.findById({_id:idSubject}).populate('users');
+    console.log(subject);
+    const response = await subject?.users;
+    
+    return response;
+}
+
+export { insertSubject, getSubject, getSubjects, updateSubject, deleteSubject, matriculateSubject, getUsersSubject };

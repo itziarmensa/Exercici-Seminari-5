@@ -1,5 +1,5 @@
-import { Request,Response } from "express";
-import { insertSubject,getSubject,getSubjects,updateSubject,deleteSubject, matriculateSubject} from "../services/subject";
+import { request, Request,Response } from "express";
+import { insertSubject,getSubject,getSubjects,updateSubject,deleteSubject, matriculateSubject, getUsersSubject} from "../services/subject";
 import { handleHttp } from "../utils/error.handle";
 
 const get_Subject = async({params}:Request,res:Response)=>{
@@ -61,4 +61,15 @@ const matriculate_Subject = async ({body}:Request,res:Response)=>{
     }
 };
 
-export{get_Subject,get_Subjects,post_Subject,update_Subject,delete_Subject,matriculate_Subject};
+const get_Users_Subject = async ({body}: Request, res: Response) => {
+    try{
+        const {idSubject} = body
+        const response = await getUsersSubject(idSubject);
+        res.send(response);
+        console.log(response);
+    }catch(e){
+        handleHttp(res, "ERROR_GET_USERS_OF_SUBJECT");
+    }
+};
+
+export{get_Subject,get_Subjects,post_Subject,update_Subject,delete_Subject,matriculate_Subject, get_Users_Subject};
