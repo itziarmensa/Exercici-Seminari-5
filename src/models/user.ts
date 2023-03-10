@@ -19,6 +19,10 @@ const UserSchema = new Schema<User>(
             type: String,
             required:true,
         },
+        subjects:{
+            type: [Schema.Types.ObjectId],
+            ref: "subjects",
+        },
     },
     {
         timestamps: true,

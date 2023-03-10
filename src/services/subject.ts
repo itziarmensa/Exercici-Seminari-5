@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
 import { Subject } from "../interfaces/subject.interface";
 import SubjectModel from "../models/subject";
+import UserModel from "../models/user";
 
 const insertSubject=async(item:Subject)=>{
     const responseInsert=await SubjectModel.create(item);
@@ -34,13 +35,19 @@ const deleteSubject=async(id:string)=>{
 }
 
 const matriculateSubject=async(idUser:string,idSubject:string)=>{
-    const responseItem = await SubjectModel.findOneAndUpdate(
+    const responseSubject = await SubjectModel.findOneAndUpdate(
         {_id:idSubject},
         {$addToSet: {users: new Types.ObjectId(idUser)}},
         {new: true}
     ).populate('users');
-    console.log(responseItem?.users);
-    return responseItem;
+    
+    const responseUser = await UserModel.findOneAndUpdate(
+        {_id:idUser},
+        {$addToSet: {subjects: new Types.ObjectId(idSubject)}},
+        {new: true}
+    ).populate('subjects');
+
+    return {responseSubject, responseUser};
 };
 
 export { insertSubject, getSubject, getSubjects, updateSubject, deleteSubject, matriculateSubject };
