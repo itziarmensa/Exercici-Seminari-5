@@ -34,10 +34,11 @@ const getSubjectsUser = async(idUser:string) => {
     return response;
 }
 
-/*const searchEx3 = async() => {
+const searchEx3 = async() => {
     const users = await UserModel.find({}).populate('subjects');
-    const search = await users.filter(user => user.surname === "Mensa" && user.subjects?.some(subject => subject.semester === 2));
-}*/
+    const search = await users.filter(user => user.surname == "Mensa");
+    return search;
+}
 
 
-export {insertUser, getUser, getUsers, updateUser, deleteUser, getSubjectsUser};
+export {insertUser, getUser, getUsers, updateUser, deleteUser, getSubjectsUser, searchEx3};

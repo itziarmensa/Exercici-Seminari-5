@@ -1,5 +1,5 @@
 import { Request,Response } from "express";
-import { insertUser,getUsers,getUser,updateUser,deleteUser, getSubjectsUser} from "../services/user";
+import { insertUser,getUsers,getUser,updateUser,deleteUser, getSubjectsUser, searchEx3} from "../services/user";
 import { handleHttp } from "../utils/error.handle";
 
 const getPerson=async({params}:Request,res:Response)=>{
@@ -61,4 +61,13 @@ const get_Subjects_User = async ({body}: Request, res: Response) => {
     }
 };
 
-export{getPerson,getPeople,postPerson,updatePerson,deletePerson, get_Subjects_User};
+const search_Ex3 = async (req: Request, res: Response) => {
+    try{
+        const response = await searchEx3();
+        res.send(response);
+    }catch(e){
+        handleHttp(res, "ERROR_GET_USER");
+    }
+};
+
+export{getPerson,getPeople,postPerson,updatePerson,deletePerson, get_Subjects_User, search_Ex3};
