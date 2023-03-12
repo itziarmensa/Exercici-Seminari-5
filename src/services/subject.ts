@@ -52,9 +52,7 @@ const matriculateSubject=async(idUser:string,idSubject:string)=>{
 
 const getUsersSubject = async(idSubject:string) => {
     const subject = await SubjectModel.findById({_id:idSubject}).populate('users');
-    console.log(subject);
-    const response = await subject?.users;
-    
+    const response = await subject?.users;    
     return response;
 }
 

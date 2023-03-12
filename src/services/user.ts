@@ -8,7 +8,7 @@ const insertUser = async(item: User) => {
 };
 
 const getUsers = async() => {
-    const responseItem = await UserModel.find({});
+    const responseItem = await UserModel.find({}).populate('subjects');
     return responseItem;
 };
 
@@ -27,5 +27,17 @@ const deleteUser = async(id: string) => {
     return responseItem;
 }
 
+const getSubjectsUser = async(idUser:string) => {
+    const user = await UserModel.findById({_id:idUser}).populate('subjects');
+    const response = await user?.subjects;    
+    console.log(response);
+    return response;
+}
 
-export {insertUser, getUser, getUsers, updateUser, deleteUser};
+/*const searchEx3 = async() => {
+    const users = await UserModel.find({}).populate('subjects');
+    const search = await users.filter(user => user.surname === "Mensa" && user.subjects?.some(subject => subject.semester === 2));
+}*/
+
+
+export {insertUser, getUser, getUsers, updateUser, deleteUser, getSubjectsUser};

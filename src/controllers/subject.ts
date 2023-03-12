@@ -63,10 +63,9 @@ const matriculate_Subject = async ({body}:Request,res:Response)=>{
 
 const get_Users_Subject = async ({body}: Request, res: Response) => {
     try{
-        const {idSubject} = body
+        const {idSubject} = body;
         const response = await getUsersSubject(idSubject);
         res.send(response);
-        console.log(response);
     }catch(e){
         handleHttp(res, "ERROR_GET_USERS_OF_SUBJECT");
     }

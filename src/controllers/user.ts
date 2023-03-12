@@ -1,5 +1,5 @@
 import { Request,Response } from "express";
-import { insertUser,getUsers,getUser,updateUser,deleteUser} from "../services/user";
+import { insertUser,getUsers,getUser,updateUser,deleteUser, getSubjectsUser} from "../services/user";
 import { handleHttp } from "../utils/error.handle";
 
 const getPerson=async({params}:Request,res:Response)=>{
@@ -51,4 +51,14 @@ const deletePerson=async ({params}:Request,res:Response)=>{
     }
 };
 
-export{getPerson,getPeople,postPerson,updatePerson,deletePerson};
+const get_Subjects_User = async ({body}: Request, res: Response) => {
+    try{
+        const {idUser} = body;
+        const response = await getSubjectsUser(idUser);
+        res.send(response);
+    }catch(e){
+        handleHttp(res, "ERROR_GET_SUBJECTS_OF_USER");
+    }
+};
+
+export{getPerson,getPeople,postPerson,updatePerson,deletePerson, get_Subjects_User};
